@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { API_KEY, API_URL } from "../config";
-import Loader from "./Loader";
+import Cart from "./Card";
+import { GoodList } from "./GoodList";
+import { Loader } from "./Loader";
 
-export default function Shop() {
+function Shop() {
     const [goods, setGoods] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -12,16 +14,18 @@ export default function Shop() {
                 Authorization: API_KEY,
             },
         })
-            .then((response) => response.json)
+            .then((response) => response.json())
             .then((data) => {
-                setGoods(data.featured && setGoods(data.featured));
+                data.featured && setGoods(data.featured);
                 setLoading(false);
             });
     }, []);
-
     return (
         <div className="container content">
-            {loading ? <Loader /> : <h1>jeasd</h1>}
+            <Cart quantity={goods.length} />
+            {loading ? <Loader /> : <GoodList goods={goods} />}
         </div>
     );
 }
+
+export { Shop };

@@ -1,9 +1,9 @@
-import GoodItem from "./GoodItem";
+import React from "react";
+import { GoodItem } from "./GoodItem";
 
-export default function GoodList(props) {
+function GoodList(props) {
     const { goods = [] } = props;
-
-    if (goods.length) {
+    if (!goods.length) {
         return <h3>Nothing here</h3>;
     }
     return (
@@ -14,3 +14,5 @@ export default function GoodList(props) {
         </div>
     );
 }
+
+export { GoodList };
